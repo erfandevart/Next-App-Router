@@ -1,7 +1,14 @@
 import { NextResponse } from "next/server";
 
-export async function GET() {
-  const data = { name: "erfan", lastName: "mohiti" };
+const data = [
+  { name: "erfan", lastName: "mohiti" },
+  { name: "vahid", lastName: "mohiti" },
+];
 
-  return NextResponse.json(data);
+export async function GET(req) {
+  const { searchParams } = new URL(req.url);
+  const name = searchParams.get("name");
+  console.log(name);
+  const fiteredData = data.filter((item) => item.name === name);
+  return NextResponse.json(fiteredData);
 }
